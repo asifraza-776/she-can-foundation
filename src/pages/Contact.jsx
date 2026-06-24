@@ -20,7 +20,8 @@ function Contact() {
     setIsSubmitting(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/contact', formData);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.post(`${apiUrl}/api/contact`, formData);
       if (res.data.success) {
         toast.success('Form Submitted Successfully');
         setFormData({ name: '', email: '', message: '' }); // Clear form

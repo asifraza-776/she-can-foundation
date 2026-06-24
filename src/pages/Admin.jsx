@@ -10,7 +10,8 @@ function Admin() {
 
   const fetchSubmissions = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/contact');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${apiUrl}/api/contact`);
       if (res.data.success) {
         setSubmissions(res.data.data);
       }
@@ -28,7 +29,8 @@ function Admin() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this submission?')) {
       try {
-        const res = await axios.delete(`http://localhost:5000/api/contact/${id}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await axios.delete(`${apiUrl}/api/contact/${id}`);
         if (res.data.success) {
           toast.success('Submission deleted');
           setSubmissions(submissions.filter(sub => sub._id !== id));
